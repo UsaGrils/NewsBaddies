@@ -10,35 +10,44 @@
 
 <style>
 
+/* =========================
+   RESET
+========================= */
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 html,body{
-background:#050505;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-overflow-x:hidden;
-color:#fff;
+    background:#050505;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    overflow-x:hidden;
+    color:#fff;
 }
 
 body::before{
-content:"";
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at top,#ff005522,transparent 35%),
-radial-gradient(circle at bottom,#0055ff22,transparent 35%);
-z-index:-1;
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at top,#ff005522,transparent 35%),
+        radial-gradient(circle at bottom,#0055ff22,transparent 35%);
+    z-index:-1;
 }
 
+
+/* =========================
+   PAGE
+========================= */
+
 .page{
-width:100%;
-max-width:480px;
-margin:auto;
-min-height:100vh;
-padding-bottom:50px;
+    width:100%;
+    max-width:480px;
+    margin:auto;
+    min-height:100vh;
+    padding-bottom:50px;
 }
 
 
@@ -47,23 +56,23 @@ padding-bottom:50px;
 ========================= */
 
 .header{
-padding:18px;
+    padding:18px;
 }
 
 .logo{
-font-size:24px;
-font-weight:800;
-letter-spacing:1px;
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:1px;
 }
 
 .logo span{
-color:#ff2f6d;
+    color:#ff2f6d;
 }
 
 .sub{
-margin-top:6px;
-color:#999;
-font-size:13px;
+    margin-top:6px;
+    color:#999;
+    font-size:13px;
 }
 
 
@@ -72,28 +81,105 @@ font-size:13px;
 ========================= */
 
 .photo-card{
-margin:12px;
-background:#111;
-border-radius:24px;
-overflow:hidden;
+    margin:12px;
+    background:#111;
+    border-radius:24px;
+    overflow:hidden;
 
-box-shadow:
-0 0 0 1px rgba(255,255,255,0.05),
-0 20px 40px rgba(0,0,0,0.45);
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.05),
+        0 20px 40px rgba(0,0,0,.45);
 }
 
 .photo-box{
-position:relative;
-background:#000;
-width:100%;
+    position:relative;
+    width:100%;
+    min-height:320px;
+    background:#000;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
+
+/* =========================
+   PHOTO
+========================= */
+
 .photo-box img{
-width:100%;
-display:block;
-max-height:75vh;
-object-fit:cover;
-background:#000;
+    width:100%;
+    display:block;
+    max-height:75vh;
+    object-fit:cover;
+    background:#000;
+
+    opacity:0;
+
+    transition:
+        opacity .6s ease;
+}
+
+.photo-box img.show{
+    opacity:1;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.photo-loading{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+
+    background:#080808;
+
+    z-index:10;
+
+    transition:
+        opacity .5s ease,
+        visibility .5s ease;
+}
+
+.photo-loading.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.loading-spinner{
+    width:40px;
+    height:40px;
+
+    border:3px solid rgba(255,255,255,.15);
+    border-top-color:#ff2f6d;
+
+    border-radius:50%;
+
+    animation:
+        loadingSpin .8s linear infinite;
+
+    margin-bottom:12px;
+}
+
+.loading-text{
+    color:#aaa;
+    font-size:13px;
+    letter-spacing:.5px;
+}
+
+@keyframes loadingSpin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
 }
 
 
@@ -102,21 +188,26 @@ background:#000;
 ========================= */
 
 .photo-box::after{
-content:"";
-position:absolute;
-left:0;
-right:0;
-bottom:0;
-height:140px;
+    content:"";
 
-background:
-linear-gradient(
-to top,
-#000000dd,
-transparent
-);
+    position:absolute;
 
-pointer-events:none;
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:140px;
+
+    background:
+        linear-gradient(
+            to top,
+            #000000dd,
+            transparent
+        );
+
+    pointer-events:none;
+
+    z-index:2;
 }
 
 
@@ -125,24 +216,24 @@ pointer-events:none;
 ========================= */
 
 .badge{
-position:absolute;
+    position:absolute;
 
-top:12px;
-left:12px;
+    top:12px;
+    left:12px;
 
-background:#ff2f6d;
+    background:#ff2f6d;
 
-padding:8px 12px;
+    padding:8px 12px;
 
-border-radius:50px;
+    border-radius:50px;
 
-font-size:12px;
-font-weight:700;
+    font-size:12px;
+    font-weight:700;
 
-z-index:5;
+    z-index:5;
 
-box-shadow:
-0 5px 15px rgba(255,0,102,0.4);
+    box-shadow:
+        0 5px 15px rgba(255,0,102,.4);
 }
 
 
@@ -151,20 +242,22 @@ box-shadow:
 ========================= */
 
 .photo-info{
-padding:16px;
+    padding:16px;
 }
 
 .photo-title{
-font-size:20px;
-font-weight:700;
-line-height:1.4;
+    font-size:20px;
+    font-weight:700;
+    line-height:1.4;
 }
 
 .photo-desc{
-margin-top:10px;
-color:#aaa;
-font-size:14px;
-line-height:1.6;
+    margin-top:10px;
+
+    color:#aaa;
+
+    font-size:14px;
+    line-height:1.6;
 }
 
 
@@ -173,12 +266,17 @@ line-height:1.6;
 ========================= */
 
 .stats{
-display:flex;
-gap:14px;
-margin-top:14px;
-color:#ccc;
-font-size:13px;
-flex-wrap:wrap;
+    display:flex;
+
+    gap:14px;
+
+    margin-top:14px;
+
+    color:#ccc;
+
+    font-size:13px;
+
+    flex-wrap:wrap;
 }
 
 
@@ -187,50 +285,50 @@ flex-wrap:wrap;
 ========================= */
 
 .watch-button{
-display:block;
+    display:block;
 
-margin-top:18px;
+    margin-top:18px;
 
-width:100%;
+    width:100%;
 
-padding:15px 20px;
+    padding:15px 20px;
 
-background:#ff2f6d;
+    background:#ff2f6d;
 
-color:#fff;
+    color:#fff;
 
-text-align:center;
+    text-align:center;
 
-text-decoration:none;
+    text-decoration:none;
 
-font-size:15px;
+    font-size:15px;
 
-font-weight:800;
+    font-weight:800;
 
-letter-spacing:.7px;
+    letter-spacing:.7px;
 
-border-radius:14px;
+    border-radius:14px;
 
-transition:
-transform .2s ease,
-background .2s ease,
-box-shadow .2s ease;
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
 
-box-shadow:
-0 8px 20px rgba(255,47,109,.25);
+    box-shadow:
+        0 8px 20px rgba(255,47,109,.25);
 }
 
 .watch-button:hover{
-background:#ff477d;
+    background:#ff477d;
 
-transform:translateY(-2px);
+    transform:translateY(-2px);
 
-box-shadow:
-0 12px 25px rgba(255,47,109,.4);
+    box-shadow:
+        0 12px 25px rgba(255,47,109,.4);
 }
 
 .watch-button:active{
-transform:scale(.98);
+    transform:scale(.98);
 }
 
 
@@ -239,36 +337,41 @@ transform:scale(.98);
 ========================= */
 
 .section-title{
-padding:18px 16px 10px;
-font-size:18px;
-font-weight:700;
+    padding:18px 16px 10px;
+
+    font-size:18px;
+    font-weight:700;
 }
 
 
 /* =========================
-   ADS
+   NATIVE BANNER
 ========================= */
 
 .ads-card{
-margin:12px;
+    margin:12px;
 
-background:#121212;
+    background:#121212;
 
-border-radius:20px;
+    border-radius:20px;
 
-padding:14px;
+    padding:14px;
 
-border:1px solid rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,.05);
 
-overflow:hidden;
+    overflow:hidden;
 }
 
 .ads-label{
-color:#777;
-font-size:11px;
-text-transform:uppercase;
-margin-bottom:12px;
-letter-spacing:1px;
+    color:#777;
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    margin-bottom:12px;
+
+    letter-spacing:1px;
 }
 
 
@@ -277,17 +380,17 @@ letter-spacing:1px;
 ========================= */
 
 .histats-box{
-margin:12px;
+    margin:12px;
 
-padding:12px;
+    padding:12px;
 
-background:#121212;
+    background:#121212;
 
-border-radius:16px;
+    border-radius:16px;
 
-text-align:center;
+    text-align:center;
 
-border:1px solid rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,.05);
 }
 
 
@@ -296,10 +399,13 @@ border:1px solid rgba(255,255,255,0.05);
 ========================= */
 
 .footer{
-text-align:center;
-color:#666;
-font-size:12px;
-padding:30px 15px;
+    text-align:center;
+
+    color:#666;
+
+    font-size:12px;
+
+    padding:30px 15px;
 }
 
 
@@ -309,13 +415,17 @@ padding:30px 15px;
 
 @media(max-width:480px){
 
-.photo-title{
-font-size:18px;
-}
+    .photo-title{
+        font-size:18px;
+    }
 
-.photo-box img{
-max-height:70vh;
-}
+    .photo-box img{
+        max-height:70vh;
+    }
+
+    .photo-box{
+        min-height:300px;
+    }
 
 }
 
@@ -336,13 +446,13 @@ max-height:70vh;
 
 <div class="header">
 
-<div class="logo">
-Next Viral <span>Hubs</span>
-</div>
+    <div class="logo">
+        Next Viral <span>Hubs</span>
+    </div>
 
-<div class="sub">
-Watch trending viral videos everyday 🔥
-</div>
+    <div class="sub">
+        Watch trending viral videos everyday 🔥
+    </div>
 
 </div>
 
@@ -353,69 +463,95 @@ Watch trending viral videos everyday 🔥
 
 <div class="photo-card">
 
-<div class="photo-box">
 
-<div class="badge">
-🔥 TRENDING
-</div>
-
-<img
-id="mainPhoto"
-src="https://cdn.aceimg.com/YT7Fvf29P.jpg"
-alt="Trending Photo"
-loading="eager"
->
-
-</div>
+    <div class="photo-box">
 
 
-<!-- INFO -->
+        <!-- LOADING -->
 
-<div class="photo-info">
+        <div
+            class="photo-loading"
+            id="photoLoading"
+        >
 
-<div class="photo-title">
-Hot Trending Video Tonight 😍
-</div>
+            <div class="loading-spinner"></div>
 
-<div class="photo-desc">
-Watch the latest viral content people are talking about right now.
-</div>
+            <div class="loading-text">
+                Loading...
+            </div>
 
-
-<!-- STATS -->
-
-<div class="stats">
-
-<div>
-👁 9.3M Views
-</div>
-
-<div>
-❤️ 491K Likes
-</div>
-
-<div>
-🔥 Trending
-</div>
-
-</div>
+        </div>
 
 
-<!-- WATCH NOW -->
+        <!-- BADGE -->
 
-<a
-id="watchButton"
-class="watch-button"
-href="https://x-hubb.github.io/Badiesgirlhub/"
-target="_blank"
-rel="noopener noreferrer"
->
+        <div class="badge">
+            🔥 TRENDING
+        </div>
 
-WATCH NOW
 
-</a>
+        <!-- ACEIMG PHOTO -->
 
-</div>
+        <img
+            id="mainPhoto"
+            src=""
+            alt="Trending Photo"
+        >
+
+
+    </div>
+
+
+    <!-- =========================
+         INFO
+    ========================= -->
+
+    <div class="photo-info">
+
+
+        <div class="photo-title">
+            Hot Trending Video Tonight 😍
+        </div>
+
+
+        <div class="photo-desc">
+            Watch the latest viral content people are talking about right now.
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div>
+                👁 9.3M Views
+            </div>
+
+            <div>
+                ❤️ 491K Likes
+            </div>
+
+            <div>
+                🔥 Trending
+            </div>
+
+        </div>
+
+
+        <!-- WATCH NOW -->
+
+        <a
+            id="watchButton"
+            class="watch-button"
+            href="https://x-hubb.github.io/Badiesgirlhub"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            WATCH NOW
+        </a>
+
+
+    </div>
 
 </div>
 
@@ -425,30 +561,31 @@ WATCH NOW
 ========================= -->
 
 <div class="section-title">
-🔥 Trending Videos
+    🔥 Trending Videos
 </div>
 
 
 <!-- =========================
      NATIVE BANNER
+     POSISI DI BAWAH FOTO
 ========================= -->
 
 <div class="ads-card">
 
-<div class="ads-label">
-<center>Advertisement</center>
-</div>
+    <div class="ads-label">
+        <center>Advertisement</center>
+    </div>
 
-<div style="text-align:center;">
+    <div style="text-align:center;">
 
-<script
-data-cfasync="false"
-async
-type="text/javascript"
-src="//qw.rolledipocras.com/tiTtAiKEeLuZ/151239">
-</script>
+        <script
+            data-cfasync="false"
+            async
+            type="text/javascript"
+            src="//qw.rolledipocras.com/tiTtAiKEeLuZ/151239">
+        </script>
 
-</div>
+    </div>
 
 </div>
 
@@ -459,66 +596,75 @@ src="//qw.rolledipocras.com/tiTtAiKEeLuZ/151239">
 
 <div class="histats-box">
 
-<!-- Histats.com  (div with counter) -->
-
-<div id="histats_counter"></div>
-
-<!-- Histats.com START -->
-
-<script type="text/javascript">
-
-var _Hasync = _Hasync || [];
-
-_Hasync.push([
-'Histats.start',
-'1,5044778,4,8,210,40,00011111'
-]);
-
-_Hasync.push([
-'Histats.fasi',
-'1'
-]);
-
-_Hasync.push([
-'Histats.track_hits',
-''
-]);
-
-(function(){
-
-var hs = document.createElement('script');
-
-hs.type = 'text/javascript';
-
-hs.async = true;
-
-hs.src = '//s10.histats.com/js15_as.js';
-
-(
-document.getElementsByTagName('head')[0] ||
-document.getElementsByTagName('body')[0]
-).appendChild(hs);
-
-})();
-
-</script>
+    <div id="histats_counter"></div>
 
 
-<noscript>
+    <!-- Histats.com START -->
 
-<a href="/" target="_blank">
+    <script type="text/javascript">
 
-<img
-src="//sstatic1.histats.com/0.gif?5044778&101"
-alt=""
-border="0"
->
+        var _Hasync = _Hasync || [];
 
-</a>
+        _Hasync.push([
+            'Histats.start',
+            '1,5044778,4,8,210,40,00011111'
+        ]);
 
-</noscript>
+        _Hasync.push([
+            'Histats.fasi',
+            '1'
+        ]);
 
-<!-- Histats.com END -->
+        _Hasync.push([
+            'Histats.track_hits',
+            ''
+        ]);
+
+
+        (function(){
+
+            var hs =
+                document.createElement('script');
+
+            hs.type =
+                'text/javascript';
+
+            hs.async =
+                true;
+
+            hs.src =
+                '//s10.histats.com/js15_as.js';
+
+
+            (
+                document.getElementsByTagName('head')[0] ||
+                document.getElementsByTagName('body')[0]
+            ).appendChild(hs);
+
+        })();
+
+    </script>
+
+
+    <noscript>
+
+        <a
+            href="/"
+            target="_blank"
+        >
+
+            <img
+                src="//sstatic1.histats.com/0.gif?5044778&101"
+                alt=""
+                border="0"
+            >
+
+        </a>
+
+    </noscript>
+
+    <!-- Histats.com END -->
+
 
 </div>
 
@@ -529,7 +675,7 @@ border="0"
 
 <div class="footer">
 
-© 2026 Viral Media • All Rights Reserved
+    © 2026 Viral Media • All Rights Reserved
 
 </div>
 
@@ -538,7 +684,7 @@ border="0"
 
 
 <!-- =========================
-     JAVASCRIPT UTAMA
+     JAVASCRIPT
 ========================= -->
 
 <script>
@@ -546,246 +692,325 @@ border="0"
 (function(){
 
 
-/* =========================
-   FOTO ACEIMG
-========================= */
+    /* =========================
+       ACEIMG PHOTO
+    ========================= */
 
-const PHOTO_URL =
-"https://cdn.aceimg.com/s9VIpnRv2.jpg";
+    const PHOTO_URL =
+        "https://cdn.aceimg.com/s9VIpnRv2.jpg";
 
 
-/* =========================
-   SMARTLINK
-========================= */
+    /* =========================
+       SMARTLINK
+    ========================= */
 
-const SMARTLINK =
-"https://x-hubb.github.io/Badiesgirlhub/";
+    const SMARTLINK =
+        "https://x-hubb.github.io/Badiesgirlhub/";
 
 
-/* =========================
-   PASANG FOTO
-========================= */
+    /* =========================
+       ELEMENT
+    ========================= */
 
-const mainPhoto =
-document.getElementById("mainPhoto");
+    const mainPhoto =
+        document.getElementById(
+            "mainPhoto"
+        );
 
-if(mainPhoto){
+    const photoLoading =
+        document.getElementById(
+            "photoLoading"
+        );
 
-mainPhoto.src = PHOTO_URL;
+    const watchButton =
+        document.getElementById(
+            "watchButton"
+        );
 
-}
 
+    /* =========================
+       SMARTLINK
+    ========================= */
 
-/* =========================
-   PASANG SMARTLINK
-========================= */
+    if(watchButton){
 
-const watchButton =
-document.getElementById("watchButton");
+        watchButton.href =
+            SMARTLINK;
 
-if(watchButton){
+    }
 
-watchButton.href = SMARTLINK;
 
-}
+    /* =========================
+       WAIT 2 SECONDS
+    ========================= */
 
+    setTimeout(function(){
 
-/* =========================
-   IMPRESSION TRACKING
-========================= */
 
-const impressionSeen =
-new Set();
+        /* =========================
+           LOAD ACEIMG PHOTO
+        ========================= */
 
+        if(mainPhoto){
 
-function tagImpression(name,element){
+            mainPhoto.src =
+                PHOTO_URL;
 
-if(
-!element ||
-impressionSeen.has(name)
-){
 
-return;
+            mainPhoto.onload =
+                function(){
 
-}
 
-impressionSeen.add(name);
+                    /* SHOW PHOTO */
 
+                    mainPhoto.classList.add(
+                        "show"
+                    );
 
-try{
 
-const key =
-"nextwatch_impressions";
+                    /* HIDE LOADING */
 
+                    if(photoLoading){
 
-const data =
-JSON.parse(
-localStorage.getItem(key) || "[]"
-);
+                        photoLoading.classList.add(
+                            "hide"
+                        );
 
+                    }
 
-data.push({
+                };
 
-event:name,
 
-time:new Date().toISOString(),
+            /* =========================
+               ERROR
+            ========================= */
 
-page:location.href
+            mainPhoto.onerror =
+                function(){
 
-});
+                    if(photoLoading){
 
+                        photoLoading.innerHTML =
 
-localStorage.setItem(
+                            '<div class="loading-text">' +
+                            'Image failed to load' +
+                            '</div>';
 
-key,
+                    }
 
-JSON.stringify(
-data.slice(-100)
-)
+                };
 
-);
+        }
 
-}catch(e){}
 
+    },2000);
 
-element.setAttribute(
-"data-impression-tagged",
-"true"
-);
 
-}
+    /* =========================
+       IMPRESSION TRACKING
+    ========================= */
 
+    const impressionSeen =
+        new Set();
 
-/* =========================
-   PAGE IMPRESSION
-========================= */
 
-tagImpression(
-"page_impression",
-document.body
-);
+    function tagImpression(
+        name,
+        element
+    ){
 
+        if(
+            !element ||
+            impressionSeen.has(name)
+        ){
 
-/* =========================
-   PHOTO & ADS
-========================= */
+            return;
 
-const photoCard =
-document.querySelector(".photo-card");
+        }
 
 
-const adCard =
-document.querySelector(".ads-card");
+        impressionSeen.add(name);
 
 
-/* =========================
-   INTERSECTION OBSERVER
-========================= */
+        try{
 
-if("IntersectionObserver" in window){
+            const key =
+                "nextwatch_impressions";
 
-const observer =
-new IntersectionObserver(
 
-(entries)=>{
+            const data =
+                JSON.parse(
+                    localStorage.getItem(key) ||
+                    "[]"
+                );
 
-entries.forEach(entry=>{
 
+            data.push({
 
-if(
-!entry.isIntersecting ||
-entry.intersectionRatio < 0.25
-){
+                event:name,
 
-return;
+                time:
+                    new Date().toISOString(),
 
-}
+                page:
+                    location.href
 
+            });
 
-/* PHOTO */
 
-if(
-entry.target === photoCard
-){
+            localStorage.setItem(
 
-tagImpression(
-"photo_impression",
-entry.target
-);
+                key,
 
-}
+                JSON.stringify(
+                    data.slice(-100)
+                )
 
+            );
 
-/* BANNER */
+        }catch(e){}
 
-if(
-entry.target === adCard
-){
 
-tagImpression(
-"native_banner_impression",
-entry.target
-);
+        element.setAttribute(
+            "data-impression-tagged",
+            "true"
+        );
 
-}
+    }
 
 
-/* STOP OBSERVING */
+    /* =========================
+       PAGE IMPRESSION
+    ========================= */
 
-observer.unobserve(
-entry.target
-);
+    tagImpression(
+        "page_impression",
+        document.body
+    );
 
-});
 
-},
+    /* =========================
+       PHOTO / BANNER
+    ========================= */
 
-{
-threshold:[0.25]
-}
+    const photoCard =
+        document.querySelector(
+            ".photo-card"
+        );
 
-);
+    const adCard =
+        document.querySelector(
+            ".ads-card"
+        );
 
 
-/* OBSERVE PHOTO */
+    /* =========================
+       INTERSECTION OBSERVER
+    ========================= */
 
-if(photoCard){
+    if(
+        "IntersectionObserver" in window
+    ){
 
-observer.observe(
-photoCard
-);
+        const observer =
+            new IntersectionObserver(
 
-}
+                function(entries){
 
+                    entries.forEach(
+                        function(entry){
 
-/* OBSERVE ADS */
+                            if(
+                                !entry.isIntersecting ||
+                                entry.intersectionRatio < 0.25
+                            ){
 
-if(adCard){
+                                return;
 
-observer.observe(
-adCard
-);
+                            }
 
-}
 
+                            /* PHOTO */
 
-}else{
+                            if(
+                                entry.target === photoCard
+                            ){
 
+                                tagImpression(
+                                    "photo_impression",
+                                    entry.target
+                                );
 
-/* FALLBACK */
+                            }
 
-tagImpression(
-"photo_impression",
-photoCard
-);
 
+                            /* NATIVE BANNER */
 
-tagImpression(
-"native_banner_impression",
-adCard
-);
+                            if(
+                                entry.target === adCard
+                            ){
 
-}
+                                tagImpression(
+                                    "native_banner_impression",
+                                    entry.target
+                                );
+
+                            }
+
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold:[0.25]
+                }
+
+            );
+
+
+        if(photoCard){
+
+            observer.observe(
+                photoCard
+            );
+
+        }
+
+
+        if(adCard){
+
+            observer.observe(
+                adCard
+            );
+
+        }
+
+
+    }else{
+
+
+        /* =========================
+           FALLBACK
+        ========================= */
+
+        tagImpression(
+            "photo_impression",
+            photoCard
+        );
+
+
+        tagImpression(
+            "native_banner_impression",
+            adCard
+        );
+
+    }
 
 
 })();
